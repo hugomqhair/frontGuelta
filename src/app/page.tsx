@@ -18,7 +18,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const response = await httpPost("auth", { usuario, senha });
+      const response = await httpPost("authguelta", { usuario, senha });
 
       if (response?.token) {
         // 🔹 Armazena o token e dados do usuário
