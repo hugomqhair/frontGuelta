@@ -8,19 +8,6 @@ export interface propsFolder {
     quantidade: any
 }
 
-// export default function Folderguelta(props: propsFolder) {
-//     const ctx = useContext(GueltaContext)
-//     return (
-//         <div className="flex justify-center" onClick={() => { ctx.selecionaMes(props.mesano)}}>
-//             <div className=" w-auto relative">
-//                 <IconFolder stroke={1} className="text-yellow-300 w-[128px] h-[128px]" />
-//                 <span className="absolute top-12 left-10 -translate-x-1/2 -translate-y-1/2 text-white text-xl font-black">{props.quantidade}</span>
-//                 <span className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-md font-thin">{props.mesano}</span>
-//             </div>
-//         </div>
-//     )
-// }
-
 
 export default function Folderguelta(props: propsFolder) {
     const ctx = useContext(GueltaContext);
@@ -38,13 +25,5 @@ export default function Folderguelta(props: propsFolder) {
         </div>
     );
 
-    // return (
-    //     <div className="relative flex flex-col items-center cursor-pointer hover:scale-105 transition-transform">
-    //       <IconFolder stroke={1} className="text-yellow-400 w-24 h-24" />
-    //       <span className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-    //         {props.quantidade}
-    //       </span>
-    //       <span className="mt-2 text-white font-semibold">{props.mesano}</span>
-    //     </div>
-    //   );
+
 }

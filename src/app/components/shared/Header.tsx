@@ -34,18 +34,18 @@ export default function Header() {
       {/* 🔹 Título */}
       <div className="flex items-center gap-1">
         <h1 className="text-xl font-bold bg-black rounded-full p-2">M|Q</h1>
-        <div>Gestão de Gueltas</div>
+        <div className="hidden sm:block">Gestão de Gueltas</div>
       </div>
 
       {/* 🔹 Usuário e Logout */}
       {usuario && (
         <div className="flex items-center gap-4">
-          <p className="text-white bg-purple-800 rounded-full p-2">👤 {usuario}</p>
+          <p className="flex text-white bg-purple-800 rounded-full p-2 gap-2"><span className="hidden sm:block">👤</span> {usuario}</p>
           <button
             onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-md transition"
+            className="flex bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-md transition gap-1"
           >
-            🚪 Sair
+            🚪 <span className="hidden sm:block">Sair</span>
           </button>
         </div>
       )}

@@ -71,9 +71,7 @@ export default function Page() {
     }
 
     try {
-        console.log('produtosSelecionados', produtosSelecionados);
-        const response = await httpPost("insertGueltaItem", produtosSelecionados);
-        console.log('response', response);
+        await httpPost("insertGueltaItem", produtosSelecionados);
         router.push(`/guelta/home/${id}`);
     } catch (error) {
       console.error("Erro ao salvar produtos:", error);
@@ -120,7 +118,7 @@ export default function Page() {
       <h2 className="text-lg text-yellow-300 font-semibold">📍 Loja: {loja}</h2>
 
       {/* 🔍 Filtros */}
-      <div className=" p-3 rounded-lg shadow-md mt-4 flex flex-col md:flex-row gap-3">
+      <div className="p-3 rounded-lg shadow-md mt-4 flex flex-col md:flex-row gap-3">
         {/* Filtro por nome */}
         <input
           type="text"

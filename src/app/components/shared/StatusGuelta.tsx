@@ -26,7 +26,7 @@ export default function StatusGuelta(props:StatusGueltaProps) {
 
   async function fecharGuelta(id: number) {
     const resp = await httpPost(`/fecharGuelta`,{idguelta: id})
-    console.log('Resp fechar guelta', resp)
+    //console.log('Resp fechar guelta', resp)
     if(resp.response=='ok'){
         setIsClosed(true);
         props.onFechar(id)

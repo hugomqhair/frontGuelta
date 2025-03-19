@@ -3,12 +3,6 @@
 import HomeMes from "./client";
 import { use } from "react";
 
-// export async function generateStaticParams() {
-//   return [{id:'02-2025'}, {id:'03-2025'}]
-// }
-
-// export const dynamic = 'force-static'
-// export const dynamicParams = true
 
 
 export default function Page({ params }: any) {

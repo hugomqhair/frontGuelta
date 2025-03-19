@@ -18,8 +18,9 @@ export default function useAPI() {
         return extrairDados(resposta)
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async function httpPost(caminho: string, body: any) {
-        console.log('body', body)
+        //console.log('body', body)
         const uri = caminho.startsWith('/') ? caminho : `/${caminho}`
         // const uri = caminho
         const urlCompleta = `${apiUrl}${uri}`

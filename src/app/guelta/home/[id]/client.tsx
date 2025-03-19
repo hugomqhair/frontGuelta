@@ -120,7 +120,7 @@ export default function HomeMes(props: MesProps) {
   
   
   return (
-    <div className="max-w-4xl w-9/12 mx-auto p-4">
+    <div className="w-full  mx-auto p-2">
       <button 
         onClick={() => router.push("/guelta/home")} 
         className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
@@ -149,7 +149,9 @@ export default function HomeMes(props: MesProps) {
             >
               <div className="flex flex-col items-center gap-1">
                 {g.qtdneg!=null && g.qtdneg>0 &&  <StatusGuelta isClosed={g.fechada} id={g.id} onFechar={atualizarGueltas}></StatusGuelta>}
-                <span className="text-md font-bold bg-sky-700 text-white px-3 py-1 rounded-lg">Itens {g.qtdneg ?? 0}</span>
+                <div className="flex">
+                    <div className="flex text-md font-bold bg-sky-700 text-white px-3 py-1 rounded-lg gap-2"><span className=" hidden sm:block">Itens</span>{g.qtdneg ?? 0}</div>
+                </div>
               </div>
               <div>
                 <h2 className="text-xl font-semibold text-yellow-300">{g.loja}</h2>
