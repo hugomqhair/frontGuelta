@@ -27,14 +27,24 @@ export default function Folderguelta(props: propsFolder) {
     return (
         <div className="flex justify-center cursor-pointer" onClick={() => ctx.selecionaMes(props.mesano)}>
             <div className="relative w-[140px] h-[140px] transition-all duration-200 transform hover:scale-105">
-                <IconFolder stroke={1.5} className="text-yellow-300 w-full h-full drop-shadow-lg" />
-                <div className="absolute top-8 left-7 bg-red-600 text-white text-sm font-bold px-2 py-1 rounded-full">
+                <IconFolder stroke={1.3} className="text-yellow-300 w-full h-full drop-shadow-md" />
+                <div className="absolute top-8 left-7  text-white text-md font-bold px-2 py-1 rounded-full">
                     {props.quantidade}
                 </div>
-                <span className="absolute bottom-7 left-1/2 -translate-x-1/2 text-white text-sm font-bold bg-black/50 px-2 py-1 rounded-md">
+                <span className="absolute bottom-7 left-1/2 -translate-x-1/2 text-white text-sm font-bold  px-2 py-1 rounded-md">
                     {props.mesano}
                 </span>
             </div>
         </div>
     );
+
+    // return (
+    //     <div className="relative flex flex-col items-center cursor-pointer hover:scale-105 transition-transform">
+    //       <IconFolder stroke={1} className="text-yellow-400 w-24 h-24" />
+    //       <span className="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+    //         {props.quantidade}
+    //       </span>
+    //       <span className="mt-2 text-white font-semibold">{props.mesano}</span>
+    //     </div>
+    //   );
 }

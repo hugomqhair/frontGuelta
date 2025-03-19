@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import useAPI from "@/hooks/api/useAPI";
 import Link from "next/link";
+import { IconPlus } from "@tabler/icons-react";
+import StatusGuelta from "@/app/components/shared/StatusGuelta";
 
 interface Guelta {
   id: number;
@@ -13,6 +15,7 @@ interface Guelta {
   vend: string;
   qtdneg: number | null;
   idloja: number | null;
+  fechada: boolean;
 }
 
 interface Loja {
@@ -106,10 +109,18 @@ export default function HomeMes(props: MesProps) {
       console.error("Erro ao adicionar loja:", error);
     }
   }
+
+  function atualizarGueltas(idGuelta: number) {
+    setGueltas((prevGueltas) =>
+      prevGueltas.map((g) =>
+        g.id === idGuelta ? { ...g, fechada: true } : g
+      )
+    );
+  }
   
   
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-4xl w-9/12 mx-auto p-4">
       <button 
         onClick={() => router.push("/guelta/home")} 
         className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
@@ -134,20 +145,25 @@ export default function HomeMes(props: MesProps) {
           gueltas.map((g) => (
             <div 
               key={g.id} 
-              className="flex justify-between items-center bg-gray-800 p-4 rounded-lg shadow-md hover:bg-gray-700 transition"
+              className="flex justify-between items-center bg-gray-800 p-3 rounded-lg shadow-md hover:bg-gray-700 transition"
             >
+              <div className="flex flex-col items-center gap-1">
+                {g.qtdneg!=null && g.qtdneg>0 &&  <StatusGuelta isClosed={g.fechada} id={g.id} onFechar={atualizarGueltas}></StatusGuelta>}
+                <span className="text-md font-bold bg-sky-700 text-white px-3 py-1 rounded-lg">Itens {g.qtdneg ?? 0}</span>
+              </div>
               <div>
                 <h2 className="text-xl font-semibold text-yellow-300">{g.loja}</h2>
-                <p className="text-gray-300">Vendedor: {g.vend}</p>
               </div>
-              <span className="text-lg font-bold bg-red-600 text-white px-3 py-1 rounded-lg">
-                {g.qtdneg ?? 0} vendas
-              </span>
-              <Link href={`/guelta/home/${id}/produtos?loja=${encodeURIComponent(g.loja)}&idguelta=${g.id}`}>
-                <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
-                  ➕
-                </button>
-              </Link>
+              <div>
+                {!g.fechada && (
+                  <Link href={`/guelta/home/${id}/produtos?loja=${encodeURIComponent(g.loja)}&idguelta=${g.id}`}>
+                    <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
+                      {/* <span className="text-white">➕</span> */}
+                      <IconPlus stroke={3}></IconPlus>
+                    </button>
+                  </Link>
+                )}
+              </div>
             </div>
           ))
         )}
