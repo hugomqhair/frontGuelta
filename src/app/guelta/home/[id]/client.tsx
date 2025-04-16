@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import useAPI from "@/hooks/api/useAPI";
 import Link from "next/link";
-import { IconPlus } from "@tabler/icons-react";
+import { IconEye, IconPlus } from "@tabler/icons-react";
 import StatusGuelta from "@/app/components/shared/StatusGuelta";
+import GueltaContext from "../../GueltaContext";
 
 interface Guelta {
   id: number;
@@ -40,6 +41,7 @@ export default function HomeMes(props: MesProps) {
   const [loadingLojas, setLoadingLojas] = useState(false);
   const [reload, setReload] = useState(true);
   const [idvendedor, setIdvendedor] = useState('');
+  const { setGueltaFechada} = useContext(GueltaContext);
   
 //   const id = params?.id as string | undefined;
   const id = props.id as string | undefined;
@@ -59,6 +61,7 @@ export default function HomeMes(props: MesProps) {
     const filtrados = listarTodos.filter((g: Guelta) => g.fmt_dtmov === id);
     setGueltas(filtrados);
     setReload(false)
+    setGueltaFechada(false)
   },[id, reload]
 )
 
@@ -117,10 +120,15 @@ export default function HomeMes(props: MesProps) {
       )
     );
   }
+
+  function informargueltaFechada(idGuelta: number) {
+    console.log('fecharGuelta', idGuelta)
+    setGueltaFechada(true)
+  }
   
   
   return (
-    <div className="w-full  mx-auto p-2">
+    <div className="w-full  mx-auto mx-2 p-2">
       <button 
         onClick={() => router.push("/guelta/home")} 
         className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition"
@@ -145,7 +153,7 @@ export default function HomeMes(props: MesProps) {
           gueltas.map((g) => (
             <div 
               key={g.id} 
-              className="flex justify-between items-center bg-gray-800 p-3 rounded-lg shadow-md hover:bg-gray-700 transition"
+              className="flex justify-between items-center bg-zinc-50 p-3 m-3   rounded-lg shadow-yellow-600 hover:bg-gray-300 transition"
             >
               <div className="flex flex-col items-center gap-1">
                 {g.qtdneg!=null && g.qtdneg>0 &&  <StatusGuelta isClosed={g.fechada} id={g.id} onFechar={atualizarGueltas}></StatusGuelta>}
@@ -154,15 +162,21 @@ export default function HomeMes(props: MesProps) {
                 </div>
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-yellow-300">{g.loja}</h2>
+                <h2 className="text-xl font-semibold text-zinc-800">{g.loja}</h2>
               </div>
               <div>
-                {!g.fechada && (
+                {!g.fechada ? (
                   <Link href={`/guelta/home/${id}/produtos?loja=${encodeURIComponent(g.loja)}&idguelta=${g.id}`}>
                     <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
-                      {/* <span className="text-white">➕</span> */}
                       <IconPlus stroke={3}></IconPlus>
                     </button>
+                  </Link>
+                ) : (
+                  <Link href={`/guelta/home/${id}/produtos?loja=${encodeURIComponent(g.loja)}&idguelta=${g.id}`}>
+                    <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition" onClick={() => informargueltaFechada(g.id)}>
+                      <IconEye stroke={3}></IconEye>
+                    </button>
+
                   </Link>
                 )}
               </div>

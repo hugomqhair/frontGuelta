@@ -1,8 +1,9 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import useAPI from "@/hooks/api/useAPI";
 import { IconEraser } from "@tabler/icons-react";
+import GueltaContext from "@/app/guelta/GueltaContext";
 
 interface Produto {
     id: number;
@@ -28,6 +29,7 @@ export default function Page() {
   // 🔍 Estados para filtros
   const [filtroDescricao, setFiltroDescricao] = useState(""); // Busca por nome
   const [somenteComQuantidade, setSomenteComQuantidade] = useState(false); // Toggle para mostrar apenas os preenchidos
+  const {gueltaFechada} = useContext(GueltaContext);
 
   useEffect(() => {
     async function carregarProdutos() {
@@ -42,13 +44,17 @@ export default function Page() {
 
         setProdutos(data);
         setQuantidades(quantidadesRegistradas);
+        
+        console.log('gueltaFechada', gueltaFechada, somenteComQuantidade)
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
       } finally {
         setLoading(false);
       }
     }
-
+    if(gueltaFechada){
+      setSomenteComQuantidade(true)
+    }
     carregarProdutos();
   }, [idguelta]);
 
@@ -106,12 +112,12 @@ export default function Page() {
           🔙 Voltar
         </button>
         
-        <button 
+        {!gueltaFechada && <button 
           onClick={salvarGuelta}
           className="mb-4 px-4 py-2 ml-auto bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition"
         >
           ✅ Salvar Guelta
-        </button>
+        </button>}
       </div>
 
       <h1 className="text-2xl font-bold text-white">🛒 Guelta:  {id}</h1>
@@ -173,12 +179,12 @@ export default function Page() {
         </div>
       )}
 
-      <button 
+      {!gueltaFechada && <button 
         onClick={salvarGuelta}
         className="mt-6 w-full py-3 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition"
       >
         ✅ Salvar Guelta
-      </button>
+      </button>}
     </div>
   );
 }
